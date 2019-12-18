@@ -1,0 +1,6 @@
+precompute/
+models/
+saved_data/
+__pycache__/
+API_KEY
+screenshot.png

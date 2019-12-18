@@ -1,0 +1,17 @@
+language: en
+pipeline:
+- name: WhitespaceTokenizer
+- name: CRFEntityExtractor
+- name: EntitySynonymMapper
+- name: CountVectorsFeaturizer
+  token_pattern: "\\b\\w\\w+\\b|[\\u263a-\\U0001f645]"
+- name: CountVectorsFeaturizer
+  token_pattern: "\\b\\w\\w+\\b|[\\u263a-\\U0001f645]"
+  analyzer: "char_wb"
+  min_ngram: 1
+  max_ngram: 4
+- name: EmbeddingIntentClassifier
+policies:
+- name: MemoizationPolicy
+- name: KerasPolicy
+- name: MappingPolicy

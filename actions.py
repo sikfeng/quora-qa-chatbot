@@ -292,7 +292,7 @@ def scrape_quora_answer(user_id, user_query):
     question_answer += "\n" + answer_url
     conversations[user_id]['question_answer'] = question_answer
     POST_edit_message(user_id, conversations[user_id]['displayed_msgs_id'][0],
-                      text=f"` Results\n{'='*9}`\n\n{question_answer}", reply_markup={'inline_keyboard': conversations[user_id]['query_buttons']}) 
+                      text=f"`{'='*9}\n Results\n{'='*9}`\n\n{question_answer}", reply_markup={'inline_keyboard': conversations[user_id]['query_buttons']}) 
 
 
 def reset_conversation(user_id):
@@ -349,6 +349,7 @@ def parse_response(result):
 
     if user_query[:6] == '/start':
       reset_conversation(user_id)
+      POST_send_message(chat_id=user_id, text="Hello :D Dend a question to the bot to start searching")
       return
     #print(result)
     if user_query == '/reset':

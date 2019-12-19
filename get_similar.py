@@ -9,7 +9,6 @@ from gensim.similarities import Similarity
 import numpy as np
 import re
 import string
-import spacy
 import logging
 
 import time

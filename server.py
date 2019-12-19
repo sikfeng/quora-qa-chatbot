@@ -12,6 +12,7 @@ import subprocess
 import threading
 import queue
 import logging
+import traceback
 
 import actions
 import get_similar
@@ -130,12 +131,13 @@ def run():
     try:
       updates = actions.POST_get_update(offset=latest_update_id + 1, timeout=120)
       updates.encode('unicode_escape')
-      logger.debug(updates)
       updates_json = json.loads(updates)
       results = updates_json['result']
+      if len(results) > 0:
+        logger.debug(updates_json)
     except Exception as e:
       logger.error("Failed to get updates")
-      logger.error(f'{e}')
+      logger.error(f'{traceback.format_exc()}')
       continue
     if results is None:
       logger.error("Failed to get updates")

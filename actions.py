@@ -215,6 +215,8 @@ def print_current(user_id, edit=True):
         user_id,
         f'[{displayed_questions[0] + 1}-{displayed_questions[1] + 1}]/{len(similar_questions)} displayed',
         reply_markup={'inline_keyboard': [scroll_buttons]}))
+    logger.debug(f'query_button_response = {query_button_response}')
+    logger.debug(f'scroll_bar_response = {scroll_bar_response}')
     conversations[user_id]['displayed_msgs_id'] = [query_button_response['result']['message_id'], 
                                                    scroll_bar_response['result']['message_id']]
   else:

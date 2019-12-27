@@ -9,6 +9,8 @@ from gensim.test.utils import datapath, get_tmpfile
 from gensim.similarities import MatrixSimilarity, Similarity
 from gensim.parsing.preprocessing import preprocess_string, strip_punctuation, strip_multiple_whitespaces, stem_text
 import subprocess
+from tqdm import tqdm
+
 import get_similar
 
 
@@ -16,7 +18,7 @@ def main():
   orig_qns = [qn.strip()for qn in open('data/questions.txt')]
   aug = [qn.strip() for qn in open('data/augmented.txt')]
   all_qns = []
-  for idx, qn in enumerate(orig_qns):
+  for idx, qn in tqdm(enumerate(orig_qns)):
     all_qns.append(qn)
     if aug[idx] != qn:
       all_qns.append(aug[idx])
@@ -25,7 +27,7 @@ def main():
 
   qns = pickle.load(open("precompute/questions.pkl", 'rb'))
   documents = []
-  for qn in qns:
+  for qn in tqdm(qns):
     document = get_similar.preprocess_text(qn)
     if len(document) < 1:
       document = ['UNK']
@@ -41,7 +43,7 @@ def main():
   dct.save('precompute/dct.dict')
   dct = corpora.Dictionary.load('precompute/dct.dict')
   
-  corpus = [dct.doc2bow(doc) for doc in documents]
+  corpus = [dct.doc2bow(doc) for doc in tqdm(documents)]
   pickle.dump(corpus, open("precompute/corpus.pkl", 'wb'))
   print("Corpus generated")
 

@@ -8,6 +8,7 @@ from gensim.test.utils import get_tmpfile
 from gensim.similarities import Similarity
 import numpy as np
 import re
+#import spacy
 import string
 import logging
 
@@ -132,6 +133,7 @@ def check_question(query, question):
 
 def get_similar(query):
   tokenized_query = preprocess_text(query)
+  logger.info(f"tokenized_query = {tokenized_query}")
 
   query_index = dct.doc2bow(tokenized_query)
   query_tfidf = tfidf_model[query_index]
@@ -159,7 +161,7 @@ def get_tokens_idf(question_idx):
   raise ValueError(f"an integer is required (got type {type(question_idx)})")
 
 
-#if __name__ == '__main__':
-  #start = time.time()
-  #print(get_similar("How do I exit \"vim\"?"))
-  #print(f'{time.time() - start}s has elapsed')
+if __name__ == '__main__':
+  load_precomputed()
+  while True:
+    print(get_similar(input("> ")))
